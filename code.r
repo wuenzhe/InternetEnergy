@@ -8,6 +8,8 @@ library(xlsx) # 数据导出
 library(dplyr) # 数据预处理
 library(psych) # 描述性统计
 library(ggplot2) # 数据可视化
+library(Rmisc)
+library(gridExtra)
 library(stargazer) # 结果输出
 
 # 导入与合并数据
@@ -189,8 +191,39 @@ summary(modern_me)
 
 # 数据可视化
 ## 宽带网络与能源消费
-ggplot(data, aes(x = internet, y = bio)) + geom_col()
-
+int_bio <- table(data$internet, data$bio)
+int_bio <- data.frame(int_bio)
+p1 <- ggplot(int_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + 
+  labs(fill = "Biomass Energy")
+int_trad <- table(data$internet, data$trad)
+int_trad <- data.frame(int_trad)
+p2 <- ggplot(int_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + 
+  labs(fill = "Inferior Energy")
+int_modern <- table(data$internet, data$modern)
+int_modern <- data.frame(int_modern)
+p3 <- ggplot(int_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + 
+  labs(fill = "Commercial Energy")
+multiplot(p1, p2, p3, cols = 3)
+## 省份与能源消费
+pro_bio <- table(data$province, data$bio)
+pro_bio <- data.frame(pro_bio)
+p4 <- ggplot(pro_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + 
+  labs(fill = "Biomass Energy")
+pro_trad <- table(data$province, data$trad)
+pro_trad <- data.frame(pro_trad)
+p5 <- ggplot(pro_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + 
+  labs(fill = "Inferior Energy")
+pro_modern <- table(data$province, data$modern)
+pro_modern <- data.frame(pro_modern)
+p6 <- ggplot(pro_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + 
+  labs(fill = "Commercial Energy")
+multiplot(p4, p5, p6, cols = 3)
 
 # 输出结果
 ## 描述性统计
