@@ -57,7 +57,7 @@ detach(data)
 # 导出数据
 write.xlsx(data, "data.xlsx")
 
-# 描述性统计分析
+# 统计学特征
 describe(data)
 
 # 基准回归模型——logistic回归模型
@@ -72,16 +72,6 @@ summary(bio_3)
 bio_4 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
                lnincome + people + area + traffic + south, data, family = binomial())
 summary(bio_4)
-p <- predict.glm(bio_4, type = "response")
-log_odds <- log(p / (1 - p))
-plot_data <- data.frame(
-  internet = data$internet,
-  log_odds = log_odds
-)
-ggplot(plot_data, aes(internet, log_odds)) +
-  geom_point(alpha = 0.3, size = 5, color = "#d38d0b") +
-  geom_smooth(color = "#1172c2e3", fill = "#54abf3") +
-  theme_minimal()
 ## 低劣能源
 trad_1 <- glm(trad ~ internet, data, family = binomial())
 summary(trad_1)
@@ -93,16 +83,6 @@ summary(trad_3)
 trad_4 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
                 lnincome + people + area + traffic + south, data, family = binomial())
 summary(trad_4)
-p <- predict.glm(trad_4, type = "response")
-log_odds <- log(p / (1 - p))
-plot_data <- data.frame(
-  internet = data$internet,
-  log_odds = log_odds
-)
-ggplot(plot_data, aes(internet, log_odds)) +
-  geom_point(alpha = 0.3, size = 5, color = "#d38d0b") +
-  geom_smooth(color = "#1172c2e3", fill = "#54abf3") +
-  theme_minimal()
 ## 商品能源
 modern_1 <- glm(modern ~ internet, data, family = binomial())
 summary(modern_1)
@@ -114,19 +94,6 @@ summary(modern_3)
 modern_4 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
                   lnincome + people + area + traffic + south, data, family = binomial())
 summary(modern_4)
-p <- predict.glm(modern_4, type = "response")
-log_odds <- log(p / (1 - p))
-plot_data <- data.frame(
-  internet = data$internet,
-  log_odds = log_odds
-)
-ggplot(plot_data, aes(internet, log_odds)) +
-  geom_point(alpha = 0.3, size = 5, color = "#d38d0b") +
-  geom_smooth(color = "#1172c2e3", fill = "#54abf3") +
-  theme_minimal()
-
-# 内生性问题解决——PSM
-
 
 # 稳健性检验——替换核心解释变量
 bio_sub <- glm(bio ~ phone + age + health + education + cadres + party + nonagri +
@@ -219,6 +186,11 @@ summary(trad_me)
 modern_me <- glm(modern ~ pred_know + age + health + education + cadres + party + nonagri +
                    lnincome + people + area + traffic + south, family = binomial(), data)
 summary(modern_me)
+
+# 数据可视化
+## 宽带网络与能源消费
+ggplot(data, aes(x = internet, y = bio)) + geom_col()
+
 
 # 输出结果
 ## 描述性统计
