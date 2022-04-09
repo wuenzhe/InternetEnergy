@@ -8,8 +8,7 @@ library(xlsx) # 数据导出
 library(dplyr) # 数据预处理
 library(psych) # 描述性统计
 library(ggplot2) # 数据可视化
-library(Rmisc)
-library(gridExtra)
+library(Rmisc) # 一页多图
 library(stargazer) # 结果输出
 
 # 导入与合并数据
@@ -207,7 +206,7 @@ p3 <- ggplot(int_modern, aes(x = Var1, y = Freq, fill = Var2)) +
   geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + 
   labs(fill = "Commercial Energy")
 multiplot(p1, p2, p3, cols = 3)
-## 省份与能源消费
+## 地区与能源消费
 pro_bio <- table(data$province, data$bio)
 pro_bio <- data.frame(pro_bio)
 p4 <- ggplot(pro_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
@@ -224,6 +223,24 @@ p6 <- ggplot(pro_modern, aes(x = Var1, y = Freq, fill = Var2)) +
   geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + 
   labs(fill = "Commercial Energy")
 multiplot(p4, p5, p6, cols = 3)
+## 教育水平与能源消费
+edu_bio <- table(data$education, data$bio)
+edu_bio <- data.frame(edu_bio)
+p4 <- ggplot(edu_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
+  labs(fill = "Biomass Energy")
+edu_trad <- table(data$education, data$trad)
+edu_trad <- data.frame(edu_trad)
+p5 <- ggplot(edu_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
+  labs(fill = "Inferior Energy")
+edu_modern <- table(data$education, data$modern)
+edu_modern <- data.frame(edu_modern)
+p6 <- ggplot(edu_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
+  geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
+  labs(fill = "Commercial Energy")
+multiplot(p4, p5, p6, cols = 3)
+## 宽带网络与生态环境认知水平
 
 # 输出结果
 ## 描述性统计
