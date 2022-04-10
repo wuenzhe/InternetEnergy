@@ -226,21 +226,20 @@ multiplot(p4, p5, p6, cols = 3)
 ## 教育水平与能源消费
 edu_bio <- table(data$education, data$bio)
 edu_bio <- data.frame(edu_bio)
-p4 <- ggplot(edu_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
+p7 <- ggplot(edu_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
   geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
   labs(fill = "Biomass Energy")
 edu_trad <- table(data$education, data$trad)
 edu_trad <- data.frame(edu_trad)
-p5 <- ggplot(edu_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
+p8 <- ggplot(edu_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
   geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
   labs(fill = "Inferior Energy")
 edu_modern <- table(data$education, data$modern)
 edu_modern <- data.frame(edu_modern)
-p6 <- ggplot(edu_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
+p9 <- ggplot(edu_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
   geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
   labs(fill = "Commercial Energy")
-multiplot(p4, p5, p6, cols = 3)
-## 宽带网络与生态环境认知水平
+multiplot(p7, p8, p9, cols = 3)
 
 # 输出结果
 ## 描述性统计
