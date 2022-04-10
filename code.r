@@ -32,8 +32,7 @@ rm(myvars)
 names(data)
 names(data)[c(2: 4)] <- c("id", "province", "internet")
 names(data)[5] <- "phone"
-names(data)[c(10: 16)] <- c("cadres", "party", "nonagri", "income", "traffic", 
-                            "area1", "area2")
+names(data)[c(10: 16)] <- c("cadres", "party", "nonagri", "income", "traffic", "area1", "area2")
 names(data)[c(17: 21)] <- c("trad1", "trad2", "trad3", "trad4", "trad5")
 names(data)[c(22: 27)] <- c("modern1", "modern2", "modern3", "modern4", "modern5", "eletricity")
 names(data)[28] <- "other"
@@ -67,58 +66,46 @@ bio_1 <- glm(bio ~ internet, data, family = binomial())
 summary(bio_1)
 bio_2 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri, data, family = binomial())
 summary(bio_2)
-bio_3 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
-               lnincome + people + + area, data, family = binomial())
+bio_3 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area, data, family = binomial())
 summary(bio_3)
-bio_4 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
-               lnincome + people + area + traffic + south, data, family = binomial())
+bio_4 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial())
 summary(bio_4)
 ## 低劣能源
 trad_1 <- glm(trad ~ internet, data, family = binomial())
 summary(trad_1)
 trad_2 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri, data, family = binomial())
 summary(trad_2)
-trad_3 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
-                lnincome + people + + area, data, family = binomial())
+trad_3 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area, data, family = binomial())
 summary(trad_3)
-trad_4 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
-                lnincome + people + area + traffic + south, data, family = binomial())
+trad_4 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial())
 summary(trad_4)
 ## 商品能源
 modern_1 <- glm(modern ~ internet, data, family = binomial())
 summary(modern_1)
 modern_2 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri, data, family = binomial())
 summary(modern_2)
-modern_3 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
-                  lnincome + people + + area, data, family = binomial())
+modern_3 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area, data, family = binomial())
 summary(modern_3)
-modern_4 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
-                  lnincome + people + area + traffic + south, data, family = binomial())
+modern_4 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial())
 summary(modern_4)
 
 # 稳健性检验——替换核心解释变量
-bio_sub <- glm(bio ~ phone + age + health + education + cadres + party + nonagri +
-                 lnincome + people + area + traffic + south, data, family = binomial())
+bio_sub <- glm(bio ~ phone + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial())
 summary(bio_sub)
-trad_sub <- glm(trad ~ phone + age + health + education + cadres + party + nonagri +
-                  lnincome + people + area + traffic + south, data, family = binomial())
+trad_sub <- glm(trad ~ phone + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial())
 summary(trad_sub)
-modern_sub <- glm(modern ~ phone + age + health + education + cadres + party + nonagri +
-                    lnincome + people + area + traffic + south, data, family = binomial())
+modern_sub <- glm(modern ~ phone + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial())
 summary(modern_sub)
 
 # 稳健性检验——替换回归模型
 ## 生物质能
-bio_5 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
-               lnincome + people + area + traffic + south, data, family = binomial(link = "probit"))
+bio_5 <- glm(bio ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial(link = "probit"))
 summary(bio_5)
 ## 低劣能源
-trad_5 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
-                lnincome + people + area + traffic + south, data, family = binomial(link = "probit"))
+trad_5 <- glm(trad ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial(link = "probit"))
 summary(trad_5)
 ## 商品能源
-modern_5 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
-                  lnincome + people + area + traffic + south, data, family = binomial(link = "probit"))
+modern_5 <- glm(modern ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data, family = binomial(link = "probit"))
 summary(modern_5)
 
 # 异质性探究——分地域
@@ -127,23 +114,17 @@ table(data$south)
 data_south <- subset(data, south == 1)
 data_north <- subset(data, south == 0)
 ## logistic回归模型
-bio_south <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
-                   lnincome + people + area + traffic, data_south, family = binomial())
+bio_south <- glm(bio ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_south, family = binomial())
 summary(bio_south)
-bio_north <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
-                   lnincome + people + area + traffic, data_north, family = binomial())
+bio_north <- glm(bio ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_north, family = binomial())
 summary(bio_north)
-trad_south <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
-                    lnincome + people + area + traffic, data_south, family = binomial())
+trad_south <- glm(trad ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_south, family = binomial())
 summary(trad_south)
-trad_north <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
-                    lnincome + people + area + traffic, data_north, family = binomial())
+trad_north <- glm(trad ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_north, family = binomial())
 summary(trad_north)
-modern_south <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
-                      lnincome + people + area + traffic, data_south, family = binomial())
+modern_south <- glm(modern ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_south, family = binomial())
 summary(modern_south)
-modern_north <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
-                      lnincome + people + area + traffic, data_north, family = binomial())
+modern_north <- glm(modern ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_north, family = binomial())
 summary(modern_north)
 
 # 异质性检验——分教育水平
@@ -152,93 +133,65 @@ table(data$education)
 data_high <-  subset(data, education >= 9)
 data_low <- subset(data, education <= 8)
 ## logistic回归模型
-bio_high <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
-                  lnincome + people + area + traffic, data_high, family = binomial())
+bio_high <- glm(bio ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_high, family = binomial())
 summary(bio_high)
-bio_low <- glm(bio ~ internet + age + health + education + cadres + party + nonagri +
-                 lnincome + people + area + traffic, data_low, family = binomial())
+bio_low <- glm(bio ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_low, family = binomial())
 summary(bio_low)
-trad_high <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
-                   lnincome + people + area + traffic, data_high, family = binomial())
+trad_high <- glm(trad ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_high, family = binomial())
 summary(trad_high)
-trad_low <- glm(trad ~ internet + age + health + education + cadres + party + nonagri +
-                  lnincome + people + area + traffic, data_low, family = binomial())
+trad_low <- glm(trad ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_low, family = binomial())
 summary(trad_low)
-modern_high <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
-                     lnincome + people + area + traffic, data_high, family = binomial())
+modern_high <- glm(modern ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_high, family = binomial())
 summary(modern_high)
-modern_low <- glm(modern ~ internet + age + health + education + cadres + party + nonagri +
-                    lnincome + people + area + traffic, data_low, family = binomial())
+modern_low <- glm(modern ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic, data_low, family = binomial())
 summary(modern_low)
 
 # CMP估计
 ## 第一阶段——计算拟合值
-know <- lm(know ~ internet + age + health + education + cadres + party + nonagri +
-             lnincome + people + area + traffic + south, data)
+know <- lm(know ~ internet + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, data)
 summary(know)
 pred_know <- predict(know)
 ## 第二阶段——中介效应检验
-bio_me <- glm(bio ~ pred_know + age + health + education + cadres + party + nonagri +
-                lnincome + people + area + traffic + south, family = binomial(), data)
+bio_me <- glm(bio ~ pred_know + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, family = binomial(), data)
 summary(bio_me)
-trad_me <- glm(trad ~ pred_know + age + health + education + cadres + party + nonagri +
-                 lnincome + people + area + traffic + south, family = binomial(), data)
+trad_me <- glm(trad ~ pred_know + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, family = binomial(), data)
 summary(trad_me)
-modern_me <- glm(modern ~ pred_know + age + health + education + cadres + party + nonagri +
-                   lnincome + people + area + traffic + south, family = binomial(), data)
+modern_me <- glm(modern ~ pred_know + age + health + education + cadres + party + nonagri + lnincome + people + area + traffic + south, family = binomial(), data)
 summary(modern_me)
 
 # 数据可视化
 ## 宽带网络与能源消费
 int_bio <- table(data$internet, data$bio)
 int_bio <- data.frame(int_bio)
-p1 <- ggplot(int_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + 
-  labs(fill = "Biomass Energy")
+p1 <- ggplot(int_bio, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + labs(fill = "Biomass Energy")
 int_trad <- table(data$internet, data$trad)
 int_trad <- data.frame(int_trad)
-p2 <- ggplot(int_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + 
-  labs(fill = "Inferior Energy")
+p2 <- ggplot(int_trad, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + labs(fill = "Inferior Energy")
 int_modern <- table(data$internet, data$modern)
 int_modern <- data.frame(int_modern)
-p3 <- ggplot(int_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + 
-  labs(fill = "Commercial Energy")
+p3 <- ggplot(int_modern, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Internet") + theme(legend.position = "top") + labs(fill = "Commercial Energy")
 multiplot(p1, p2, p3, cols = 3)
 ## 地区与能源消费
 pro_bio <- table(data$province, data$bio)
 pro_bio <- data.frame(pro_bio)
-p4 <- ggplot(pro_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + 
-  labs(fill = "Biomass Energy")
+p4 <- ggplot(pro_bio, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + labs(fill = "Biomass Energy")
 pro_trad <- table(data$province, data$trad)
 pro_trad <- data.frame(pro_trad)
-p5 <- ggplot(pro_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + 
-  labs(fill = "Inferior Energy")
+p5 <- ggplot(pro_trad, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + labs(fill = "Inferior Energy")
 pro_modern <- table(data$province, data$modern)
 pro_modern <- data.frame(pro_modern)
-p6 <- ggplot(pro_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + 
-  labs(fill = "Commercial Energy")
+p6 <- ggplot(pro_modern, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Province") + theme(legend.position = "top") + labs(fill = "Commercial Energy")
 multiplot(p4, p5, p6, cols = 3)
 ## 教育水平与能源消费
 edu_bio <- table(data$education, data$bio)
 edu_bio <- data.frame(edu_bio)
-p7 <- ggplot(edu_bio, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
-  labs(fill = "Biomass Energy")
+p7 <- ggplot(edu_bio, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + labs(fill = "Biomass Energy")
 edu_trad <- table(data$education, data$trad)
 edu_trad <- data.frame(edu_trad)
-p8 <- ggplot(edu_trad, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
-  labs(fill = "Inferior Energy")
+p8 <- ggplot(edu_trad, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + labs(fill = "Inferior Energy")
 edu_modern <- table(data$education, data$modern)
 edu_modern <- data.frame(edu_modern)
-p9 <- ggplot(edu_modern, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + 
-  labs(fill = "Commercial Energy")
+p9 <- ggplot(edu_modern, aes(x = Var1, y = Freq, fill = Var2)) + geom_col() + scale_x_discrete("Education") + theme(legend.position = "top") + labs(fill = "Commercial Energy")
 multiplot(p7, p8, p9, cols = 3)
 
 # 输出结果
