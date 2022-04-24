@@ -1,6 +1,6 @@
 # 设置工作路径
 getwd()
-setwd("D:/临时文件/Internet_Energy/datas")
+setwd("D:/临时文件/Internet_Energy/datas_code")
 
 # 加载R工具包
 library(haven) # 数据导入
